@@ -1,16 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.wl4g</groupId>
-	<artifactId>super-devops</artifactId>
-	<version>master</version>
+	<artifactId>xcloud-devops</artifactId>
 	<packaging>pom</packaging>
-	<name>Super DevOps</name>
-	<url>https://super-devops.wl4g.com</url>
+	<name>XCloud DevSecOps</name>
+	<url>https://xcloud.wl4g.com</url>
 	<description>A DevSecOps solution that covers the entire software lifecycle and lightweight microservices.</description>
 	<organization>
 		<name>Wanglsir</name>
-		<url>https://blog.wl4g.com/super-devops</url>
+		<url>http://xcloud.wl4g.com</url>
 	</organization>
 	<licenses>
 		<license>
@@ -20,14 +19,14 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:git@github.com:wl4g/super-devops.git</connection>
-		<developerConnection>scm:git:git@github.com:wl4g/super-devops.git</developerConnection>
-		<url>https://github.com/wl4g/super-devops</url>
+		<connection>scm:git:git@github.com:wl4g/xcloud-devops.git</connection>
+		<developerConnection>scm:git:git@github.com:wl4g/xcloud-devops.git</developerConnection>
+		<url>https://github.com/wl4g/xcloud-devops</url>
 		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>github</system>
-		<url>https://github.com/wl4g/super-devops/issues</url>
+		<url>https://github.com/wl4g/xcloud/issues</url>
 	</issueManagement>
 	<developers>
 		<developer>
@@ -52,29 +51,38 @@
 			<timezone>+8</timezone>
 		</developer>
 	</developers>
+	<parent>
+		<groupId>com.wl4g</groupId>
+		<artifactId>xcloud-parent</artifactId>
+		<version>master</version>
+	</parent>
 	<modules>
-		<module>super-devops-bom</module>
-		<module>super-devops-common</module>
-		<module>super-devops-support</module>
-		<module>super-devops-share</module>
-		<module>super-devops-dao</module>
-		<module>super-devops-scm</module>
-		<module>super-devops-ci</module>
-		<module>super-devops-shell</module>
-		<module>super-devops-srm</module>
-		<module>super-devops-tool</module>
-		<module>super-devops-iam</module>
-		<module>super-devops-umc</module>
-		<module>super-devops-djob</module>
-		<!-- <module>super-devops-esm</module> -->
-		<module>super-devops-doc</module>
-		<!-- <module>super-devops-im</module> -->
-		<!-- <module>super-devops-vcs</module> -->
+		<module>xcloud-devops-commons</module>
+		<module>xcloud-devops-erm</module>
+		<module>xcloud-devops-scm</module>
+		<module>xcloud-devops-ci</module>
+		<module>xcloud-devops-umc</module>
+		<module>xcloud-devops-doc</module>
+		<module>xcloud-devops-vcs</module>
+		<module>xcloud-devops-dts</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<maven-source-plugin.version>2.4</maven-source-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+		<maven-gpg-plugin.version>1.0</maven-gpg-plugin.version>
+		<maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
+		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+		<maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<proguard-maven-plugin.version>2.1.1</proguard-maven-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<dockerfile-maven-plugin.version>1.4.9</dockerfile-maven-plugin.version>
+		<mybatis-generator-maven-plugin.version>1.3.2</mybatis-generator-maven-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.3</nexus-staging-maven-plugin.version>
+		<minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -120,7 +128,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven-source-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -147,11 +154,21 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version><!--$NO-MVN-MAN-VER$-->
+				<version>2.5.3</version><!--$NO-MVN-MAN-VER$ -->
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<!-- <preparationGoals>clean install</preparationGoals> -->
 					<!-- <developmentVersion>latest</developmentVersion> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>sonatype-nexus-staging</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
 		</plugins>
