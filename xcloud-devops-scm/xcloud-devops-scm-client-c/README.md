@@ -1,1 +1,0 @@
-Please visit the project's exclusive address: [xcloud-devops-scm-client-c](../../../../../xcloud-devops-scm-client-c)
