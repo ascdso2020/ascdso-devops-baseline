@@ -1,1 +1,0 @@
-请访问项目的专属地址： [dopaas-ci-cmdtools](../../../../../dopaas-ci-cmdtools)

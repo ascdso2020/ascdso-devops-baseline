@@ -1,1 +1,0 @@
-Please visit the project's exclusive address: [dopaas-ci-cmdtools](../../../../../dopaas-ci-cmdtools)
